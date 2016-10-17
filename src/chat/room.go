@@ -78,6 +78,8 @@ func (r *Room) Run() {
 			delete(r.chatters, chatter)
 			close(chatter.send)
 		case msg := <-r.forward:
+			data := FromJSON(msg)
+			log.Printf("chatter '%v' writing message to room %v, message: %v", data.Sender, r.topic, data.Message)
 			for chatter := range r.chatters {
 				select {
 				case chatter.send <- msg:

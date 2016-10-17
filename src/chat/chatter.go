@@ -1,10 +1,6 @@
 package chat
 
-import (
-	"log"
-
-	"github.com/gorilla/websocket"
-)
+import "github.com/gorilla/websocket"
 
 // Chatter represents a single Chatter
 type Chatter struct {
@@ -26,7 +22,6 @@ func (c *Chatter) read() {
 
 func (c *Chatter) write() {
 	for msg := range c.send {
-		log.Printf("sending message: %v", msg)
 		if err := c.socket.WriteMessage(websocket.TextMessage, msg); err != nil {
 			break
 		}
