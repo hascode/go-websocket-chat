@@ -11,7 +11,7 @@ func Run() {
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", fs)
 
-	for _, name := range []string{"arduino", "java", "groovy", "scala"} {
+	for _, name := range []string{"arduino", "java", "go", "scala"} {
 		r := NewRoom(name)
 		http.Handle("/chat/"+name, r)
 		go r.Run()
