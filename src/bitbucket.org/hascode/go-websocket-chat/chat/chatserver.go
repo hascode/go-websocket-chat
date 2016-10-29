@@ -1,19 +1,18 @@
-package main
+package chat
 
 import (
 	"log"
 	"net/http"
-
-	"./src/chat"
 )
 
-func main() {
+// Run starts a new chat server with 4 chat rooms, listening on port 8080
+func Run() {
 
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", fs)
 
 	for _, name := range []string{"arduino", "java", "groovy", "scala"} {
-		r := chat.NewRoom(name)
+		r := NewRoom(name)
 		http.Handle("/chat/"+name, r)
 		go r.Run()
 	}
